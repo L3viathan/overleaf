@@ -2,14 +2,14 @@ version: '2'
 services:
     sharelatex:
         restart: always
-        image: sharelatex/sharelatex
+        image: xuio/sharelatex-docker-image-full
         container_name: sharelatex
         depends_on:
             - mongo
             - redis
         privileged: true
         ports:
-            - 80:80
+            - 5000:80
         links:
             - mongo
             - redis
@@ -19,13 +19,14 @@ services:
         environment:
             SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
             SHARELATEX_REDIS_HOST: redis
-            SHARELATEX_APP_NAME: Our ShareLaTeX
-            
+            SHARELATEX_APP_NAME: viztex
+            SHARELATEX_SECURE_COOKIE: "true"
+            SHARELATEX_BEHIND_PROXY: "true"
             ## Set for SSL via nginx-proxy
             #VIRTUAL_HOST: 103.112.212.22
 
-            # SHARELATEX_SITE_URL: http://sharelatex.mydomain.com
-            # SHARELATEX_NAV_TITLE: Our ShareLaTeX Instance
+            SHARELATEX_SITE_URL: http://tex.vizuina.net
+            SHARELATEX_NAV_TITLE: vizTeX
             # SHARELATEX_HEADER_IMAGE_URL: http://somewhere.com/mylogo.png
             # SHARELATEX_ADMIN_EMAIL: support@it.com
 
